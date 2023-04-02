@@ -1,0 +1,7 @@
+nvm install 20 --> Instala a versao 20 mais recente;
+nvm install --lts --> Instala versao long term suport atual;
+nvm list --> Lista todas as versoes de node instaladas;
+nvm use 19 --> Troca a versao do node;
+nvm alias default 18 --> Troca a versao padrao do nodejs do node;
+node -v > .nvmrc --> Salva a versao default do node no arquivo .nvmrc local;
+nvm use --> Com o arquivo .nvmrc escrito com a versao presente, atualiza pra versao descrita;
