@@ -22,11 +22,21 @@ class WebsiteRoute {
 
         } catch(err) {
 
-            response.writeHead(500)
-            response.end("Internal Server Error!")
-            console.error(err)
-            return
+            let statusCode;
+            let statusError;
 
+            if (err instanceof TypeError) {
+                statusCode = 400
+                statusError = 'Bad Request'
+            } else {
+                statusCode = 500
+                statusError = 'Internal Server Error'
+            }
+
+            console.error(err)
+            response.writeHead(statusCode)
+            response.end(statusError)
+            return
         }
     }
 }
