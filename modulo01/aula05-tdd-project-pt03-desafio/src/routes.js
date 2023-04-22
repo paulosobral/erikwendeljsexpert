@@ -1,11 +1,11 @@
-const WebsiteRoute = require('./routes/website')
+const CarRoute = require('./routes/carRoute')
 
 const routes = {
-    '/contact:get': (request, response) => {return WebsiteRoute.contactSite(request, response)},
     // curl -i -X POST localhost:3000/login --data '{"username": "erickWendel","password": "23"}'
     // curl -i -X POST localhost:3000/login --data '{"username": "ErickWendel","password": "123"}'
-    '/login:post': async (request, response) => {
-        return await WebsiteRoute.loginSite(request, response)
+    '/rent:post': async (request, response) => {
+        carRoute = new CarRoute()
+        return await carRoute.rent(request, response)
     },
     default(_, response) {
         response.writeHead(404)
