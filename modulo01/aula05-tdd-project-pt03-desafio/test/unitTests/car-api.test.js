@@ -2,6 +2,7 @@ const { describe, it, after, before } = require('mocha')
 const sinon = require('sinon')
 const supertest = require('supertest')
 const assert = require('assert')
+//const CarService = require('../../src/service/carService')
 
 const mocks = {
     validCarCategory: require('./../mocks/valid-carCategory.json'),
@@ -10,8 +11,9 @@ const mocks = {
 }
 
 describe('API Suite test', () => {
-    let app
-    let sandbox
+    let app = {}
+    let sandbox = {}
+    //let carService = {}
     before((done) => {
         app = require('../../src/app')
         app.once('listening', done)
@@ -63,7 +65,7 @@ describe('API Suite test', () => {
                 amount: expectedAmount,
                 dueDate: expectedDueDate
             }
-            
+
             const response = await supertest(app)
             .post('/rent')
             .send(request)
@@ -81,6 +83,34 @@ describe('API Suite test', () => {
             assert.ok(response.badRequest)
             assert.strictEqual(response.text, 'Bad Request')
         })
+        // it('should request rent a car and return HTTP Status 500', async () => {
+
+        //     console.log('global', global)
+        //     sandbox.stub(
+        //         global,
+        //         "carRoute",
+        //     ).resolves({})
+
+        //     const response = await supertest(app)
+        //     .post('/rent')
+        //     .send({
+        //         "numberOfDays": "oito",
+        //         "customer": {
+        //             "id": "39352a78-8a20-4249-94c8-15dc5f6a7fd6",
+        //         "age": 34
+        //         },
+        //         "carCategory": {
+        //         "carIds": [
+        //             "4125bd3b-cc21-4ace-9839-6c72cd86405c"
+        //         ],
+        //         "price": "R$ 34"
+        //         }
+        //     })
+        //     .expect(400)
+
+        //     assert.ok(response.badRequest)
+        //     assert.strictEqual(response.text, 'Bad Request')
+        // })
     })
     describe('/hi:get - 404', () => {
         it('should request and existing page and return HTTP Status 404', async () => {
