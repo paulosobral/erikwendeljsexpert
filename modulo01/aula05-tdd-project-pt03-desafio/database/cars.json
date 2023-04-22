@@ -1,0 +1,23 @@
+[
+    {
+        "id": "4125bd3b-cc21-4ace-9839-6c72cd86405c",
+        "name": "Golf",
+        "releaseYear": 2022,
+        "available": true,
+        "gasAvailable": true
+    },
+    {
+        "id": "10b3127d-8da7-4c21-a873-019cd9c4a32c",
+        "name": "Alpine",
+        "releaseYear": 2022,
+        "available": true,
+        "gasAvailable": true
+    },
+    {
+        "id": "d2d392a3-0f93-4920-8d57-441c019b8ca3",
+        "name": "El Camino",
+        "releaseYear": 2022,
+        "available": true,
+        "gasAvailable": true
+    }
+]
