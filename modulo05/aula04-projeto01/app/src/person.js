@@ -35,10 +35,15 @@ class Person {
         // tudo que nao for digito vira vazio
         // /g serve para remover todas as ocorrencias que encontrar
         this.documento = documento.replace(evaluateRegex(/\D/g), "")
-        this.rua = rua
+        // começa a procurar depois do " a " e pega tudo que tem a frente
+        // (?<= faz com que ignore tudo que tiver antes desse match)
+        // conhecido como positive lookBehind
+        this.rua = rua.match(evaluateRegex(/(?<=\sa\s).*$/)).join()
         this.numero = numero
-        this.bairro = bairro
-        this.estado = estado
+        // começa a buscar depois do espaço, pega qualquer letra ou digito até o fim da linha (poderia ser o *. tbm)
+        this.bairro = bairro.match(evaluateRegex(/(?<=\s).*$/)).join()
+        // remove o ponto literal (.) do fim da frase
+        this.estado = estado.replace(evaluateRegex(/\.$/), "")
     }
 }
 
