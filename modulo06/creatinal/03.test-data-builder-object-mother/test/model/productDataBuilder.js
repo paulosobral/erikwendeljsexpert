@@ -1,6 +1,6 @@
 const Product = require("../../src/entities/product");
 
-class ProductDataBuilder {
+class ProductDataBuilder {  
     constructor() {
         // o default são os dados corretos
         // o caso de sucesso!
@@ -16,14 +16,26 @@ class ProductDataBuilder {
         return new ProductDataBuilder()
     }
 
-    withInvalidId() {	
+    withInvalidId() {
+        this.productData.id = '1'
+
+        return this
+    }
+
+    withInvalidName() {
         this.productData.name = 'abc123'
 
         return this
     }
 
-    withInvalidName() {	
-        this.productData.id = '1'
+    withInvalidPrice() {
+        this.productData.price = 2000
+
+        return this
+    }
+
+    withInvalidCategory() {
+        this.productData.category = 'mecanic'
 
         return this
     }
