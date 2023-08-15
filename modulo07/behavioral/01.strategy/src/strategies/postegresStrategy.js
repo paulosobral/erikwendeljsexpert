@@ -1,14 +1,30 @@
+import knex from 'knex'
+
 export default class PostgresStrategy {
-    constructor(dbStrategy) {
-        this._database = dbStrategy
+    #instance
+    constructor(connectionString) {
+        this.connectionString = connectionString
+        this.table = "warriors"
     }
 
-    connect() {
+    async connect() {
+        this.#instance = knex({
+            client: 'pg',
+            connection: this.connectionString
+        })
+
+        return this.#instance.raw('select 1+1 as result')
     }
 
-    create(item) {
+    async create(item) {
+        return this.#instance
+            .insert(item)
+            .into(this.table)
     }
 
-    read(item) {
+    async read(item) {
+        return this.#instance
+            .select()
+            .from(this.table)
     }
 }
