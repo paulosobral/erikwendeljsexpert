@@ -1,9 +1,32 @@
 import { expect, describe, test, jest, beforeEach } from '@jest/globals'
 
 import { InjectHttpInterceptor } from './agent.js'
+import { Server } from 'http'
 
-// TODO: -08:19 https://training.erickwendel.com.br/92103-javascript-expert/2196680-decorator-adicionando-comportamento-a-funcoes-existentes
+const originalHttp = jest.createMockFromModule('http')
+
 describe('HTTP Interceptor Agent', () => {
-    test.todo('should not change header')
-    test.todo('should activate header interceptor')
+    const eventName = 'request'
+    const request   = null
+    beforeEach(() => jest.clearAllMocks())
+
+    test('should not change header', () => {
+        const response = {
+            setHeader: jest.fn().mockReturnThis()
+        }
+        const serverInstance = new originalHttp.Server()
+        serverInstance.emit(eventName, request, response)
+        expect(response.setHeader).not.toHaveBeenCalled()
+    })
+    test('should activate header interceptor', () => {
+        InjectHttpInterceptor()
+
+        const response = {
+            setHeader: jest.fn().mockReturnThis()
+        }
+
+        const serverInstance = new Server()
+        serverInstance.emit(eventName, request, response)
+        expect(response.setHeader).toHaveBeenCalledWith('X-Instrumented-By', 'ErickWendel')
+    })
 })
