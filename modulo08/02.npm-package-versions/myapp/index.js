@@ -14,4 +14,3 @@ const result = FluentSQLBuilder.for(database)
     .build()
 
 console.log(result)
-//TODO: -14:37 https://training.erickwendel.com.br/92103-javascript-expert/2196684-criando-e-gerenciando-meu-primeiro-pacote-npm
