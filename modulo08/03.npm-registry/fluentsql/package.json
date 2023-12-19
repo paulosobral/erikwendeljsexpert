@@ -1,17 +1,21 @@
 {
-  "name": "@psobral89/fluentsql",
-  "version": "2.0.2",
+  "name": "@paulosobral/fluentsql",
+  "version": "2.0.3",
   "description": "",
   "main": "index.js",
   "type": "module",
   "engines": {
-    "node": "18.18.2"
+    "node": "16.20.2"
   },
   "scripts": {
     "start": "node --experimental-json-modules index.js",
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --config jest.config.mjs ",
     "test:cov": "NODE_OPTIONS=--experimental-vm-modules npx jest --config jest.config.mjs --coverage ",
     "test:watch": "NODE_OPTIONS=--experimental-vm-modules npx jest --config jest.config.mjs --watchAll "
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paulosobral/fluentsql.git"
   },
   "keywords": [],
   "author": "erickwendel",
