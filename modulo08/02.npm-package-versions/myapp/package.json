@@ -12,6 +12,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@psobral89/fluentsql": "^2.0.0"
+    "@psobral89/fluentsql": "^1.0.1"
   }
 }
