@@ -1,0 +1,25 @@
+{
+  "name": "@psobral89/date-util",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": "v16.20.2"
+  },
+  "devDependencies": {
+    "c8": "^8.0.1",
+    "nodemon": "^3.0.2"
+  },
+  "scripts": {
+    "test": "node index.test.js",
+    "test:dev": "npx nodemon index.test.js",
+    "test:cov": "npx c8 --all --exclude node_modules/* npm test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@psobral89/string-util": "^1.0.0"
+  }
+}

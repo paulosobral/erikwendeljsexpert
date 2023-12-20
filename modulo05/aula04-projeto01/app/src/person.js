@@ -19,7 +19,6 @@ class Person {
         // (\w{1}) -> pega só a primeira letra e deixa em um grupo
         // (a-zA-Z) encontra letras maiusculas ou minusculas, adicionamos o + pra ele pegar todas até p caracter especial
         // g -> todas as ocorrencias que encontrar
-        //TODO: parei faltando -12:48
         const firstLetterExp = evaluateRegex(/^(\w{1})([a-zA-Z]+$)/g)
         const formatFirstLetter = (prop) => {
             return prop.replace(firstLetterExp, (fullMatch, group1, group2, index) => {
