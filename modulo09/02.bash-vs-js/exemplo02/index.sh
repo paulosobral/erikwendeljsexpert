@@ -7,4 +7,3 @@ echo logs
 echo $CONTAINER_ID | xargs -I {id} docker logs {id}
 echo rm
 echo $CONTAINER_ID | xargs -I {id} docker rm -f {id}
-#TODO: -15:52 https://training.erickwendel.com.br/92103-javascript-expert/2196728-bash-vs-js-conhecendo-o-google-zx-para-comandos-via-node-js
