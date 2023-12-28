@@ -18,12 +18,21 @@ import {
 describe('#Codegen 3-layers arch', () => {
     const componentName = 'product'
     const repositoryName = `${componentName}Repository`
+
     beforeEach(() => {
         jest.restoreAllMocks()
         jest.clearAllMocks()
     })
 
-    test.todo('#should generate repository template')
+    test('#should generate repository template', () => {
+        const expected = {
+            fileName: repositoryName,
+            template: repositoryTemplateMock
+        }
+        
+        const result = repositoryTemplate(componentName)
+        expect(result).toStrictEqual(expected)
+    })
     test.todo('#should generate service template')
     test.todo('#should generate factory template')
 })
