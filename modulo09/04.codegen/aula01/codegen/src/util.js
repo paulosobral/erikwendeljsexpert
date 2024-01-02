@@ -2,7 +2,8 @@ export default class Util {
     // erickwendel => [0] => e
     // first = e, rest = rickwendel
     static #transform({ str: [first, ...rest], upperCase = true}) {
-    
+        if(!first) return ''
+        
         const firstLetter = upperCase ? 
             first.toUpperCase() : 
             first.toLowerCase()
