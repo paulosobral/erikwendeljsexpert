@@ -39,7 +39,7 @@ describe('#Layers - Files Structure', () => {
     test('repository should not add any additional dependencies', async () => {
         jest.spyOn(fsPromises, fsPromises.writeFile.name).mockResolvedValue()
         jest.spyOn(templates, templates.repositoryTemplate.name)
-            .mockReturnValue({ className: '', template: ''  })
+            .mockReturnValue({ fileName: '', template: ''  })
 
         const myConfig = {
             ...config,

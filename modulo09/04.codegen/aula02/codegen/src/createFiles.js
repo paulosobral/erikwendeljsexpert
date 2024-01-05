@@ -16,11 +16,21 @@ const defaultDependencies = (layer, componentName) => {
         ]
     }
 
+
     return dependencies[layer]
         // Pode ser que venha Product
         // Quero que retorne: product
         .map(Util)
 }
+
+async function executeWrites(pendingFilesToWrite) {
+    return Promise.all(pendingFilesToWrite
+        .map(
+            ({fileName, txtFile}) => fsPromises.writeFile(fileName, txtFile)
+        )
+    )
+}
+
 
 export async function createFiles({ mainPath, defaultMainFolder, layers,  componentName }) {
     
@@ -46,8 +56,13 @@ export async function createFiles({ mainPath, defaultMainFolder, layers,  compon
         // s[o o exemplo debaixo /Users/Document/jsexpert/codegen/src/factory
         const targetFolder = `${mainPath}/${defaultMainFolder}/${layer}`
         const dependencies = defaultDependencies(layer, componentName)
-        const {fileName, template: txtFile} = template(componentName, ...dependencies)
-        const fileName = `${targetFolder}/${Util.lowerCaseFirstLetter(fileName)}.js`
+        const {fileName: className, template: txtFile} = template(componentName, ...dependencies)
+        const fileName = `${targetFolder}/${Util.lowerCaseFirstLetter(className)}.js`
         pendingFilesToWrite.push({ fileName, txtFile })
     }
+
+    await executeWrites(pendingFilesToWrite)
+
+    return { success: true }
+
 }
