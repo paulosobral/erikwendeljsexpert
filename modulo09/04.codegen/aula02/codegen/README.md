@@ -9,4 +9,4 @@
 - [ ] reaches **100% test coverage**
 - [ ] integration tests should validate files on disk as a valid JS class
 
-# TODO: -18:25 https://training.erickwendel.com.br/92103-javascript-expert/2196733-2-projeto-gerador-de-codigo-criando-pastas-e-arquivos-de-camadas
+# TODO: -11:17 https://training.erickwendel.com.br/92103-javascript-expert/2196733-2-projeto-gerador-de-codigo-criando-pastas-e-arquivos-de-camadas
