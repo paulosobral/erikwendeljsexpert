@@ -20,7 +20,7 @@ const defaultDependencies = (layer, componentName) => {
     return dependencies[layer]
         // Pode ser que venha Product
         // Quero que retorne: product
-        .map(Util)
+        .map(Util.lowerCaseFirstLetter)
 }
 
 async function executeWrites(pendingFilesToWrite) {
