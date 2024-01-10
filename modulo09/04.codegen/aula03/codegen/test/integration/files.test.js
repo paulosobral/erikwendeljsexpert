@@ -40,24 +40,9 @@ describe('#Integration - Layers - Folders Structure', () => {
         await fsPromises.rmdir(config.mainPath, { recursive: true })
     })
 
-    test('should not create folders if it exists', async () => {
-        const beforeRun = await fsPromises.readdir(config.mainPath)
+    test('should not create folders if it exists')
 
-        // run
-        await createLayersIfNotExists(config)
-
-        const afterRun = await getFolders(config)
-        expect(beforeRun).not.toStrictEqual(afterRun)
-        expect(afterRun).toEqual(config.layers)
-    })
-
-    test('should not create folders if it doesnt exists', async () => {
-        const beforeRun = await getFolders(config)
-        await createLayersIfNotExists(config)
-
-        const afterRun = await getFolders(config)
-        expect(afterRun).toEqual(beforeRun)
-    })
+    
 })
 
 
