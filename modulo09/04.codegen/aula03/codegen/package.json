@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "16.20.2"
+  },
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --watch --config jest.config.mjs ",
     "test:cov": "NODE_OPTIONS=--experimental-vm-modules npx jest --config jest.config.mjs --coverage "
   },
   "keywords": [],
-  "author": "",
+  "author": "psobral89",
   "license": "ISC",
   "devDependencies": {
     "jest": "^26.6.3"
