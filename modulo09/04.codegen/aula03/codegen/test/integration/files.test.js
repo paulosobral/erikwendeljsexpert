@@ -15,6 +15,11 @@ import { createLayersIfNotExists } from './../../src/createLayers.js'
 import { createFiles } from './../../src/createFiles.js'
 import Util from '../../src/util.js'
 
+function getAllFunctionsFromInstance(instance) {
+    return Reflect.ownKeys(Object.getPrototypeOf(instance))
+        .filter(method => method !== 'constructor')
+}
+
 function generateFilePath({ mainPath, defaultMainFolder, layers, componentName }) {
     return layers.map(layer => {
         // factory
@@ -71,12 +76,66 @@ describe('#Integration - Files - Files Structure', () => {
 
         await createFiles(myConfig)
         const [ repositoryFile ] = generateFilePath(myConfig)
-        console.log({ repositoryFile })
+        const { default: Repository } = await import(repositoryFile)
+        const instance = new Repository()
+        const expectNotImplemented = fn => expect(() => fn.call()).rejects.toEqual('method not implemented!')
 
+        expectNotImplemented(instance.create)
+        expectNotImplemented(instance.read)
+        expectNotImplemented(instance.update)
+        expectNotImplemented(instance.delete)
     })
-    test.todo('Service should have the same signature of repository and call all its methods')
-    test.todo('Factory instance should match layers')
+    test('Service should have the same signature of repository and call all its methods', async () => {
+
+        const myConfig = {
+            ...config,
+            layers: ['repository', 'service']
+        }
+
+        await createFiles(myConfig)
+        const [ repositoryFile, serviceFile ] = generateFilePath(myConfig)
+
+        const { default: Repository } = await import(repositoryFile)
+        const { default: Service } = await import(serviceFile)
+
+        const repository = new Repository()
+        const service = new Service({ repository })
+
+        const allRepositoryMethods = getAllFunctionsFromInstance(repository)
+
+        allRepositoryMethods
+            .forEach(method => jest.spyOn(repository, method).mockResolvedValue())
+
+        // executa todos os metodos de service
+        getAllFunctionsFromInstance(service)
+            .forEach(method => service[method].call(service, []))
+
+        allRepositoryMethods
+            .forEach(method => expect(repository[method]).toHaveBeenCalled())
+            
+            
+    })
     
+    
+    test('Factory instance should match layers', async () => {
+        const myConfig = {
+            ...config,
+        }
+
+        await createFiles(myConfig)
+
+        // colocamos em ordem, pq já rodamos um sort no layers
+        const [ factoryFile, repositoryFile, serviceFile ] = generateFilePath(myConfig)
+
+        const { default: Repository } = await import(repositoryFile)
+        const { default: Service } = await import(serviceFile)
+        const { default: Factory } = await import(factoryFile)
+
+        const expectedInstance = new Service({ repository: new Repository() })
+        const instance = Factory.getInstance()
+
+        expect(instance).toMatchObject(expectedInstance)
+        expect(instance).toBeInstanceOf(Service)
+    })
+
 })
-
-
