@@ -2,7 +2,7 @@
   "name": "@psobral89/codegen",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/index.js",
   "type": "module",
   "bin": {
     "codegen": "./src/index.js"

@@ -9,4 +9,4 @@
 - [x] reaches **100% test coverage**
 - [x] integration tests should validate files on disk as a valid JS class
 
-# TODO: -11:31 https://training.erickwendel.com.br/92103-javascript-expert/2196734-3-projeto-gerador-de-codigo-criando-testes-de-integracao-criando-arquivo
+# TODO: -08:57 https://training.erickwendel.com.br/92103-javascript-expert/2196734-3-projeto-gerador-de-codigo-criando-testes-de-integracao-criando-arquivo
