@@ -11,7 +11,7 @@
     "node": "16.20.2"
   },
   "scripts": {
-    "start": "NODE_ENV=dev node src/index.js",
+    "start": "NODE_ENV=dev node src/index.js skeleton -c product -c person -c colors",
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --watch --config jest.config.mjs ",
     "test:cov": "NODE_OPTIONS=--experimental-vm-modules npx jest --config jest.config.mjs --coverage "
   },

@@ -4,9 +4,7 @@
 - [x] creates `repository` layer
 - [x] creates `service` layer with `repository` as dependency
 - [x] creates `factory` layer with `service` and `repository` returning its instances
-- [ ] can create multiples domains with a single comand
+- [x] can create multiples domains with a single comand
 - [x] saves files as `camelCase` and classes as `PascalCase`
 - [x] reaches **100% test coverage**
 - [x] integration tests should validate files on disk as a valid JS class
-
-# TODO: -08:57 https://training.erickwendel.com.br/92103-javascript-expert/2196734-3-projeto-gerador-de-codigo-criando-testes-de-integracao-criando-arquivo
