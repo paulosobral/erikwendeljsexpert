@@ -13,4 +13,21 @@
 // terminal 2
 // node -e "process.stdin.pipe(require('net').connect(1338))"
 
-// -43:15 https://training.erickwendel.com.br/92103-javascript-expert/2196736-read-write-duplex-e-transform-streams-o-que-sao-e-categorias
+
+
+// node -e "process.stdout.write(crypto.randomBytes(1e9))" > big.file
+
+import http from 'http'
+import { createReadStream, readFileSync } from 'fs'
+http.createServer((_, res) => {
+    // má pratica
+    // const file = readFileSync('./big.file').toString()
+    // res.write(file)
+    // res.end()
+
+    createReadStream('./big.file')
+        .pipe(res)
+
+}).listen(3000, () => console.log('running at 3000'))
+
+// curl localhost:3000 -o output.txt
