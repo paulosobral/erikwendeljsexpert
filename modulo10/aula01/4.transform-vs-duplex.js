@@ -1,4 +1,4 @@
-import { Duplex } from 'stream'
+import { Duplex, Transform } from 'stream'
 
 let count = 0;
 const server = Duplex({
@@ -26,11 +26,31 @@ const server = Duplex({
 
 // provar que são canais de comunicação diferentes!
 // write aciona o writable do Duplex
-server.write('[duplex] hey this is a awritable!\n')
+server.write('[duplex] hey this is a writable!\n')
 
-// on data -> loga o que roou no .push do readable
-server.on('data', msg => console.log(`[readable]${msg}`))
+// on data -> loga o que rolou no .push do readable
+// server.on('data', msg => console.log(`[readable]${msg}`))
+
+// o push deixa voce enviar mais dados
+server.push(`[duplex] hey this is also a readble\n`)
 
 // server
 //     .pipe(process.stdout)
-// -11:13 https://training.erickwendel.com.br/92103-javascript-expert/2196736-read-write-duplex-e-transform-streams-o-que-sao-e-categorias
+
+const transformToUpperCase = Transform({
+    objectMode: true,
+    transform(chunk, enc, cb) {
+        cb(null, chunk.toUpperCase())
+    }
+})
+
+// transform é tambem um duplex, mas não possuem comunicação independente
+transformToUpperCase.write('[transform] hello from write!')
+
+// o push vai ignorar o que voce tem na funcao transform
+transformToUpperCase.push('[transform] hello from push!\n')
+
+server
+    .pipe(transformToUpperCase)
+    // redireciona todos os dados de readable para writable da duplex
+    .pipe(server)
