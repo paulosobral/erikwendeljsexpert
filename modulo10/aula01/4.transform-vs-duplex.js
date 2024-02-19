@@ -16,8 +16,8 @@ const server = Duplex({
 
         setInterval(function() { everySecond(this) })
     },
-    // é como se fosse um objeto completamente diferente!
 
+    // é como se fosse um objeto completamente diferente!
     write(chunk, econding, cb) {
         console.log(`[writable] saving`, chunk)
         cb()
