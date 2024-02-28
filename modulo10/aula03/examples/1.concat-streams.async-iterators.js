@@ -1,6 +1,6 @@
 import { pipeline } from 'stream/promises'
-import { Writable } from 'stream'
 import axios from 'axios'
+
 const API_01 = 'http://localhost:3000'
 const API_02 = 'http://localhost:4000'
 
@@ -20,19 +20,18 @@ const requests = await Promise.all([
 const results = requests.map(({ data }) => data)
 
 
-const output = Writable({
-    write(chunk, encoding, callback) {
-        const data = chunk.toString().replace(/\n/, "")
+
+// writable stream
+
+async function* output(stream) {
+    for await(const data of stream) {
+
         // ?=- -> ele faz procurar a partir do - e olhar para traz
         // :"(?<name>.*) -> procura pelo conteúdo dentro das aspas após o : e extrai somente o name
         const name = data.match(/:"(?<name>.*)(?=-)/).groups.name
         console.log(`[${name.toLowerCase()}] ${data}`)
-        callback()
     }
-})
-
-// writable stream
-
+}
 
 // passthrough stream
 async function* merge(streams) {
@@ -51,4 +50,3 @@ await pipeline(
     merge(results),
     output
 )
-// TODO: 13:43 https://training.erickwendel.com.br/92103-javascript-expert/2196738-refatorando-streams-de-modo-classico-para-iteradores-async-como-nao-usar
