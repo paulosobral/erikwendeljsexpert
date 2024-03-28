@@ -13,13 +13,48 @@ const timeoutAsync = timers.setTimeout;
 // })
 // console.log('results', await Promise.all(results))
 
-// setTimeout(async () => {
-//     console.log('starting process!!')
-//     await timeoutAsync(100)
-//     console.count('debug')
-//     console.log(await Promise.resolve('timeout order!'))
-//     await timeoutAsync(100)
-//     console.count('debug')
+setTimeout(async () => {
+    console.log('starting process!!')
+    await timeoutAsync(100)
+    console.count('debug')
+    console.log(await Promise.resolve('timeout order!'))
+    await timeoutAsync(100)
+    console.count('debug')
 
-// }, 1000);
-// TODO: 14:23 https://training.erickwendel.com.br/92103-javascript-expert/2196741-conhecendo-erros-nao-capturados-pelo-node-js
+    await Promise.reject('promise rejected on timeout!')
+}, 1000);
+
+const throwError = (msg) => { throw new Error(msg) }
+
+try {
+    console.log('hello')
+    console.log('world')
+    throwError('error dentro do try/catch')
+} catch (error) {
+    console.log('pego no catch', error.message)
+} finally {
+    console.log('executed after all')
+}
+
+
+process.on('unhandledRejection', (e) => {
+    console.log('unhandledRejection', e.message || e)
+})
+
+process.on('uncaughtException', (e) => {
+    console.log('uncaughtExceptionRejection', e.message || e)
+    // process.exit(1)
+})
+Promise.reject('promise rejected!')
+
+// se o Promise.reject estiver dentro de um outro contexto, ele cai no unhandledRejection
+setTimeout(async () => {
+    await Promise.reject('promised async/await rejected!')
+})
+
+// mas se ele estiver no contexto gloal, ele cai no
+// await Promise.reject('promised async/await rejected!')
+// uncaughtException
+setTimeout(() => {
+    throwError('erro fora do catch!')
+})

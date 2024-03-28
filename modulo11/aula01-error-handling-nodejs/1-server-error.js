@@ -13,11 +13,13 @@ async function handler(request, response) {
                 if(count % 2 !== 0) {
                     await Promise.reject('error dentro do for!')
                 }
-                response.end()
+                // response.end()
             } catch (error) {
                 console.log('a request error has happened', error)
                 response.writeHead(500)
                 response.write(JSON.stringify({ message: 'internal server error!'}))
+                // response.end()
+            } finally {
                 response.end()
             }
             
