@@ -1,5 +1,7 @@
 import { MongoClient } from "mongodb"
 import { createServer } from "http"
+
+import { promisify } from "util"
 async function dbConnect() {
     const client = new MongoClient("mongodb://user:pass@localhost:27017")
     await client.connect()
@@ -38,7 +40,6 @@ async function handler(request, response) {
 
 }
 
-// await client.close()
 /*
     curl -i localhost:3000 -X POST -d '{"name": "Batman", "age": "80"}'
 */
@@ -50,10 +51,17 @@ const server = createServer(handler)
 const onStop = async (signal) => {
     console.info(`\n${signal} signal received!`)
 
-    // ero é tudo certo, 1 é erro!
+    console.log('Closing http server')
+    await promisify(server.close.bind(server))()
+    console.log('Http Server has closed!')
+    
+    // close(true) -> força o encerramento
+    await client.close()
+    console.log('mongodb connection has closed!')
+
+    // erro é tudo certo, 1 é erro!
     process.exit(0);
 }
 // SIGINT -> Ctrl c
 // SIGINT -> KILL
 ["SIGINT", "SIGTERM"].forEach((event) => process.on(event, onStop))
-// TODO: 09:28 https://training.erickwendel.com.br/92103-javascript-expert/2196742-graceful-shutdown-tecnicas-para-escalar-aplicacoes-node-js-sem-complicac
