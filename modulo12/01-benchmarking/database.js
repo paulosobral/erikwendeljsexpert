@@ -8,6 +8,10 @@ export default {
         "tmpProperty": undefined,
         "activePromoId": null
       },
+      {},
+      {},
+      {},
+      {},
       {
         "description": "deserunt velit aliquip do",
         "name": "quis",
@@ -15,6 +19,10 @@ export default {
         "tmpProperty": undefined,
         "activePromoId": 26
       },
+      {},
+      {},
+      {},
+      {},
       {
         "description": "ullamco eiusmod adipisicing commodo",
         "name": "sit",
@@ -29,6 +37,11 @@ export default {
         "tmpProperty": undefined,
         "activePromoId": null
       },
+      {},
+      {},
+      {},
+      {},
+      
       {
         "description": "amet ad nisi nulla",
         "name": "Lorem",
