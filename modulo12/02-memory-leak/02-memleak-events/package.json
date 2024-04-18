@@ -5,9 +5,21 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "CLIMEM=8999 node -r climem index.js",
+    "climem": "npx climem 8999",
+    "test": "npx autocannon -c 100 -d 30 -p 10 http://localhost:3000",
+    "flame-0x": "npx 0x -- node index.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "0x": "^5.7.0",
+    "autocannon": "^7.15.0",
+    "climem": "^2.0.0"
+  },
+  "dependencies": {
+    "-": "^0.0.1",
+    "http-server": "^14.1.1"
+  }
 }
