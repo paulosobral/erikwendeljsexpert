@@ -2,6 +2,7 @@ import { createReadStream } from 'fs'
 import { pipeline } from 'stream/promises'
 import { Writable, Transform } from 'stream'
 import csvtojson from 'csvtojson'
+import { setTimeout } from  'timers/promises'
 
 const database = process.argv[2]
 
@@ -29,6 +30,8 @@ async function onMessage(msg) {
                 if(!chunk) return cb()
 
                 process.send(chunk.toString())
+
+                cb()
             }
         })
     )
@@ -37,3 +40,7 @@ async function onMessage(msg) {
 process.on('message', onMessage)
 
 // console.log(`I'm ready!! ${process.pid}`, database)
+
+// para falar que o sub processo pode morrer após inatividade
+await setTimeout(10000)
+process.channel.unref()

@@ -5,9 +5,10 @@ import { pipeline } from 'stream/promises'
 import { Writable } from 'stream'
 import csvtojson from 'csvtojson'
 
-const database = './data/All_Pokemon2.csv'
+const database = './data/All_Pokemon.csv'
 
-const PROCESS_COUNT = 100;
+const PROCESS_COUNT = 30;
+const replications = []
 
 const backgroundTaskFile = './src/backgroundTask.js'
 const processes = new Map()
@@ -23,7 +24,11 @@ for(let index=0; index < PROCESS_COUNT; index++) {
     })
 
     child.on('message', msg => {
-       console.log(`${msg} is replicated!`) 
+        // work arround para multiprocessamento
+        if(replications.includes(msg)) return;
+
+        console.log(`${msg} is replicated!`)
+        replications.push(msg)
     })
     
     processes.set(child.pid, child)
@@ -39,7 +44,7 @@ function roundRoubin(array, index=0) {
 }
 // Pooll de conexões, ou load balancer
 const getProcess = roundRoubin([...processes.values()])
-console.log(`startting with ${processes.size} processes`)
+console.log(`starting with ${processes.size} processes`)
 await setTimeout(100)
 
 await pipeline(
