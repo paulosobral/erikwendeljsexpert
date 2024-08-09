@@ -7,12 +7,25 @@ import csvtojson from 'csvtojson'
 
 const database = './data/All_Pokemon2.csv'
 
-const PROCESS_COUNT = 10;
+const PROCESS_COUNT = 100;
 
 const backgroundTaskFile = './src/backgroundTask.js'
 const processes = new Map()
 for(let index=0; index < PROCESS_COUNT; index++) {
     const child = fork(backgroundTaskFile, [database])
+    child.on('exit', () => {
+        console.log(`process ${child.pid} exited`)
+        processes.delete(child.pid)
+    })
+    child.on('error', error => {
+        console.log(`process ${child.pid} has an error`, error)
+        processes.exit(1)
+    })
+
+    child.on('message', msg => {
+       console.log(`${msg} is replicated!`) 
+    })
+    
     processes.set(child.pid, child)
 }
 
@@ -40,4 +53,4 @@ await pipeline(
         }
     })
 )
-// TODO 24:24 https://training.erickwendel.com.br/92103-formacao-javascript-expert/2196755-processamento-massivo-em-arquivos-usando-child-processes-fork
+// TODO 35:16 https://play.ewacademy.com.br/area/produto/item/2944692
